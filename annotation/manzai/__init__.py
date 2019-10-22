@@ -9,5 +9,5 @@ bootstrap = Bootstrap(app)
 # CSRF対策
 app.config['DATA_DIR'] = "./manzai/data"
 app.config['SECRET_KEY'] = os.urandom(32)
-
+app.config['WTF_CSRF_ENABLED'] = os.urandom(32)
 from manzai import views

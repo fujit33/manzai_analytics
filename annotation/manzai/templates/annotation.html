@@ -1,0 +1,195 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}漫才ログアノテーション{% endblock %}
+
+<script type="text/javascript">
+    // モーダルウィンドウの処理
+    function disp(){
+        // 「OK」時の処理開始 ＋ 確認ダイアログの表示
+        if(window.confirm('入力を完了します。よろしいですか。')){
+            location.href = "example_confirm.html"; // example_confirm.html へジャンプ
+        }
+        // 「キャンセル」時の処理開始
+        else{
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+        }
+    }
+    
+    // -->
+    </script>
+
+{% block content %}
+<div class="container">
+    <h1>漫才アノテーション</h1>
+    漫才ID：{{ manzai_id }}
+    コンビID：{{ player_id }}
+
+    <div class="row">
+        <!-- 左サイドバー -->
+        <div class="left col-md-6 col-sm-12">
+            <form class="form-group"  method="POST" action="/annotation">
+
+                {{ form.hidden_tag() }}
+
+                {{ form.csrf_token }}
+                <div class="form-group">
+                {{ form.talker.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.talker %}
+                    <tr class="form-control col-xs-10">
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                {{ form.talk_text.label(class="form-control-label col-xs-4") }}
+                {{ form.talk_text(class="form-control form-control-sm") }}
+                </div>
+
+                <div class="form-group">
+                {{ form.boke_flag.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.boke_flag %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                {{ form.tsukkomi_flag.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.tsukkomi_flag %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.tsukkomi_for.label(class="form-control-label") }}
+                        {{ form.tsukkomi_for(class="form-control form-control-sm") }}
+                </div>
+
+                <div class="form-group">
+                        {{ form.act_flag.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.act_flag %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.ma.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.ma %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.move.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.move %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.position.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.position %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.voice_speed.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.voice_speed %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.voice_loudness.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.voice_loudness %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.voice_pitch.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.voice_pitch %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                        {{ form.laugher.label(class="form-control-label col-xs-4") }}
+                {% for subfield in form.laugher %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                </div>
+
+                <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="スタート">
+                </div>
+            
+                <div style="visibility:hidden;">
+                    <label class="form-control-label" for="manzai_id">漫才ID</label>
+                    <input class="form-control form-control-sm" id="manzai_id" name="manzai_id" type="text" value="{{ manzai_id}}">
+
+                    <label class="form-control-label" for="player_id">出場者ID</label>
+                    <input class="form-control form-control-sm" id="player_id" name="player_id" type="text" value="{{ player_id }}">
+                </div>
+
+            </form>
+            <div>
+                <a href="{{ url_for('register', manzai_id=manzai_id) }}">
+                    <button type="button" class="btn btn-outline-success" onClick="disp()">入力完了</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- 右サイドバー -->
+        <div class="right col-md-6 col-sm-12">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">発話番号</th>
+                        <th scope="col">内容</th>
+                    </tr>
+                </thead>
+                {% for talk in talks %}
+                    <tbody>
+                        <tr>
+                            <td> {{ talk.num }} </td>
+                            <td> {{ talk.text }} </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+    </div>
+</div>
+{% endblock %}
