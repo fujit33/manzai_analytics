@@ -38,7 +38,7 @@ class ManzaiLogForm(FlaskForm):
         default='0', validators=[DataRequired()])
 
     ma = RadioField(
-        '間', choices=[('-2', '完全に重複'), ('-1', '食い気味'), ('0',"ゼロ"), ('1',"小"), ('2',"大")],
+        '間', choices=[('-3', 'ユニゾン'),('-2', '重複'), ('-1', '食い気味'), ('0',"ゼロ"), ('1',"小"), ('2',"大")],
         default='0', validators=[DataRequired()])
 
     move = RadioField(
