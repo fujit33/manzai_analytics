@@ -27,6 +27,12 @@ class ManzaiMeta():
 class ManzaiLog():
     def __init__(self, data=None):
         self.log_data = data
+
+    def cleaning_text(self,text):
+        remove_texts = ["\n"," ","　"]
+        for rm in remove_texts:
+            text = text.replace(rm,"")
+        return text
     
     def add(self, file_path):
         """
@@ -38,7 +44,7 @@ class ManzaiLog():
             "player_id":self.log_data.get("player_id"), 
             "talk_num": 0,
             "talker":self.log_data.get("talker"), 
-            "talk_text":self.log_data.get("talk_text"), 
+            "talk_text":self.cleaning_text(self.log_data.get("talk_text")), 
             "boke_flag":self.log_data.get("boke_flag"), 
             "tsukkomi_flag":self.log_data.get("tsukkomi_flag"), 
             "tsukkomi_for":self.log_data.get("tsukkomi_for"), 
